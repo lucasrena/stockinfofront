@@ -12,10 +12,20 @@ export default {
         return {
             stockOptions: {
                 rangeSelector: {
-                    selected: 1
+                    inputEnabled: false,
+                    enabled: false
+                },
+                navigator:{
+                    enabled: false,
                 },
                 title: {
                     text: this.title
+                },
+                chart:{
+                    height: '70%'
+                },
+                scrollbar:{
+                    enabled: false
                 },
                 // series: [{
                 //     name: 'AAPL',
@@ -29,18 +39,7 @@ export default {
                 series: [{
                     type: 'candlestick',
                     name: 'Stock Price',
-                    data: this.chartData,
-                    // dataGrouping: {
-                    //     units: [
-                    //         [
-                    //             'week', // unit name
-                    //             [1] // allowed multiples
-                    //         ], [
-                    //             'month',
-                    //             [1, 2, 3, 4, 6]
-                    //         ]
-                    //     ]
-                    // }
+                    data: this.chartData
                 }]
             }
         }

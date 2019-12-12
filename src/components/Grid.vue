@@ -1,5 +1,9 @@
 <template>
-  <table>
+  <ag-grid-vue
+      :columnDefs="columnDefs"
+      :rowData="gridData">
+  </ag-grid-vue>
+  <!-- <table>
     <thead>
       <tr>
         <th v-for="key in columns"
@@ -18,16 +22,20 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </template>
 
 <script>
+import {AgGridVue} from "@ag-grid-community/vue";
+
 export default {
   name: 'Grid',
+  components:{ AgGridVue },
   props: {
     gridData: Array,
     columns: Array,
-    filterKey: String
+    filterKey: String,
+    columnDefs: null
   },
   data: function () {
     var sortOrders = {}
@@ -76,6 +84,12 @@ export default {
       console.log(id);  
       this.$emit("rowclick", id);
     }
+  },
+  beforeMount() {
+      this.columnDefs = [
+          {headerName: 'Name', field: 'name'},
+          {headerName: 'Symbol', field: 'symbol'}
+      ];
   }
 }
 </script>

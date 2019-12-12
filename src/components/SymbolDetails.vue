@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div>    
     <candlestick-chart :chartData="history" :title="chartTitle"></candlestick-chart>
   </div>
 </template>

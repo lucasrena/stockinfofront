@@ -12,11 +12,18 @@ import Highcharts from 'highcharts'
 import HighchartsVue from 'highcharts-vue';
 import stockInit from 'highcharts/modules/stock'
 import vmodal from 'vue-js-modal'
+import {ModuleRegistry, AllCommunityModules} from '@ag-grid-community/all-modules';
+//import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 
 Vue.use(VueResource);
 Vue.use(TurbolinksAdapter);
 Vue.use(HighchartsVue);
-Vue.use(vmodal)/
+Vue.use(vmodal);
+
+ModuleRegistry.registerModules(AllCommunityModules);
+
+//Vue.use(AllCommunityModules);
+//Vue.use(ClientSideRowModelModule);
 
 stockInit(Highcharts);
 
