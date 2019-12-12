@@ -55,8 +55,9 @@ export default {
       gridOptions: {
         rowHeight : 30,        
         headerHeight : 30,
-        pagination : true,
-        paginationAutoPageSize : true
+        pagination : false,
+        paginationAutoPageSize : false,
+        alwaysShowVerticalScroll: true
       }
     }
   },
@@ -102,6 +103,23 @@ export default {
 }
 </script>
 
-<style scoped>
+
+<style lang="scss">
+  @import "../../node_modules/ag-grid/dist/styles/ag-grid.css";
+  @import "../../node_modules/ag-grid/dist/styles/ag-theme-balham.css";
+
+  
+  .ag-theme-balham .ag-paging-panel {
+    float: right;
+  }
+
+  .ag-theme-balham .ag-paging-button {
+    border: none;
+    background: #fff;
+  }
+
+  .ag-theme-balham .ag-paging-row-summary-panel {
+    text-align: right;
+  }
 
 </style>
