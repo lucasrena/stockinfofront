@@ -1,7 +1,7 @@
 <template>
   <div>     
       <ag-grid-vue
-        style="width: 500px; height: 500px;"
+        style="width: 600px; height: 500px;"
         class="ag-theme-balham"
         :columnDefs="columnDefs"
         :rowData="gridData"
@@ -28,13 +28,7 @@ export default {
     return {      
       columnDefs: null,
       modules: AllCommunityModules,
-      gridOptions: {
-        rowHeight : 30,        
-        headerHeight : 30,
-        pagination : false,
-        paginationAutoPageSize : false,
-        alwaysShowVerticalScroll: true
-      }
+      gridOptions: null
     }
   },
   methods: {
@@ -43,10 +37,33 @@ export default {
     }
   },
   beforeMount() {
+      this.gridOptions = {
+        defaultColDef: {
+          resizable: true,
+          sortable: true
+        },
+        pagination: true,
+        // paginationPageSize: 10,
+        // pagination : false,
+        paginationAutoPageSize : true,
+        rowHeight : 30,        
+        headerHeight : 30,
+        alwaysShowVerticalScroll: true
+      }
+
       //TODO: get codes from param gridColumns
       this.columnDefs = [
-          {headerName: 'Name', field: 'name'},
-          {headerName: 'Symbol', field: 'symbol'}
+          { 
+            headerName: 'Name',
+            field: 'name',
+            flex: 4
+          },
+          { 
+            headerName: 'Symbol',
+            field: 'symbol',
+            minWidth: 70,
+            flex: 1
+          },
       ];
   }
 }
@@ -54,8 +71,8 @@ export default {
 
 
 <style lang="scss">
-  @import "../../node_modules/ag-grid/dist/styles/ag-grid.css";
-  @import "../../node_modules/ag-grid/dist/styles/ag-theme-balham.css";
+@import "../../node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+@import "../../node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
 
   
   .ag-theme-balham .ag-paging-panel {
