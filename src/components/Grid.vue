@@ -1,32 +1,19 @@
 <template>
-  <ag-grid-vue
-      :columnDefs="columnDefs"
-      :rowData="gridData">
-  </ag-grid-vue>
-  <!-- <table>
-    <thead>
-      <tr>
-        <th v-for="key in columns"
-          @click="sortBy(key)"
-          :class="{ active: sortKey == key }">
-          {{ key | capitalize }}
-          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="entry in filteredgridData" @click="getDetails(entry.id)">
-        <td v-for="key in columns">  
-          {{entry[key]}}
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
+  <div>     
+      <ag-grid-vue
+        style="width: 500px; height: 500px;"
+        class="ag-theme-balham"
+        :columnDefs="columnDefs"
+        :rowData="gridData"
+        :gridOptions="gridOptions"        
+        @rowDoubleClicked="getDetails">
+      </ag-grid-vue>
+  </div>
 </template>
 
 <script>
 import {AgGridVue} from "@ag-grid-community/vue";
+import {AllCommunityModules} from '@ag-grid-community/all-modules';
 
 export default {
   name: 'Grid',
@@ -35,57 +22,28 @@ export default {
     gridData: Array,
     columns: Array,
     filterKey: String,
-    columnDefs: null
+    gridColumns: null
   },
   data: function () {
-    var sortOrders = {}
-    this.columns.forEach(function (key) {
-      sortOrders[key] = 1
-    })
-    return {
-      sortKey: '',
-      sortOrders: sortOrders
-    }
-  },
-  computed: {
-    filteredgridData: function () {
-      var sortKey = this.sortKey
-      var filterKey = this.filterKey && this.filterKey.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var gridData = this.gridData
-      if (filterKey) {
-        gridData = gridData.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-          })
-        })
+    return {      
+      columnDefs: null,
+      modules: AllCommunityModules,
+      gridOptions: {
+        rowHeight : 30,        
+        headerHeight : 30,
+        pagination : false,
+        paginationAutoPageSize : false,
+        alwaysShowVerticalScroll: true
       }
-      if (sortKey) {
-        gridData = gridData.slice().sort(function (a, b) {
-          a = a[sortKey]
-          b = b[sortKey]
-          return (a === b ? 0 : a > b ? 1 : -1) * order
-        })
-      }
-      return gridData
-    }
-  },
-  filters: {
-    capitalize: function (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
     }
   },
   methods: {
-    sortBy: function (key) {
-      this.sortKey = key
-      this.sortOrders[key] = this.sortOrders[key] * -1
-    },
-    getDetails(id){
-      console.log(id);  
-      this.$emit("rowclick", id);
+    getDetails(event){
+      this.$emit("getHistory", event.data.id);
     }
   },
   beforeMount() {
+      //TODO: get codes from param gridColumns
       this.columnDefs = [
           {headerName: 'Name', field: 'name'},
           {headerName: 'Symbol', field: 'symbol'}
@@ -94,64 +52,23 @@ export default {
 }
 </script>
 
-<style scoped>
-body {
-  font-family: Helvetica Neue, Arial, sans-serif;
-  font-size: 14px;
-  color: #444;
-}
 
-table {
-  border: 2px solid #42b983;
-  border-radius: 3px;
-  background-color: #fff;
-}
+<style lang="scss">
+  @import "../../node_modules/ag-grid/dist/styles/ag-grid.css";
+  @import "../../node_modules/ag-grid/dist/styles/ag-theme-balham.css";
 
-th {
-  background-color: #42b983;
-  color: rgba(255,255,255,0.66);
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+  
+  .ag-theme-balham .ag-paging-panel {
+    float: right;
+  }
 
-td {
-  background-color: #f9f9f9;
-}
+  .ag-theme-balham .ag-paging-button {
+    border: none;
+    background: #fff;
+  }
 
-th, td {
-  min-width: 120px;
-  padding: 10px 20px;
-}
+  .ag-theme-balham .ag-paging-row-summary-panel {
+    text-align: right;
+  }
 
-th.active {
-  color: #fff;
-}
-
-th.active .arrow {
-  opacity: 1;
-}
-
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  opacity: 0.66;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-}
 </style>

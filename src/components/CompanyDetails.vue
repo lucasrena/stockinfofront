@@ -11,7 +11,7 @@ export default {
   components:{
     CandlestickChart
   },
-  name: 'SymbolDetails',
+  name: 'CompanyDetails',
   props: {
     companyData: null
   },
