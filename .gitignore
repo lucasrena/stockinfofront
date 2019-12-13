@@ -16,6 +16,5 @@ build/
 /*.babelrc
 /*.editorconfig
 /.postcssrc.js
-/package-lock.json
 /static/.gitkeep
 /yarn.lock
