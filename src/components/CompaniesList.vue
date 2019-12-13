@@ -1,23 +1,29 @@
 <template>
-  <div class="search-wrapper">
-    <modal name="company-details-modal" :width="'700px'" :height="'auto'">
+  <div>
+    
+    <!--COMPANY DETAILS MODAL-->
+    <modal name="company-details-modal" :width="'80%'" :height="'auto'">
       <div>
         <company-details :companyData="companyData"></company-details>
       </div>
     </modal>
 
-    <form class="row">
-        <div class="col-10">
-          <label>Search for company</label>
-          <input type="text" v-model="search" placeholder="search by name or symbol"/>
-        </div>
-        <div class="col-2" style="padding:2px">
-          <button v-on:click="searchCompanies" class="button">Search</button>
-        </div>
-    </form>
-    
-    <div>     
-      <grid :gridData="gridData" :gridColumns="gridColumns" :showOverlay="isLoading" @getHistory="getHistory"></grid>
+    <!--SEARCH BOX AND GRID-->
+    <div class="search-wrapper">
+
+      <form class="row">
+          <div class="col-10">
+            <label>Search for company: </label>
+            <input type="text" v-model="search" placeholder="by name or symbol"/>
+          </div>
+          <div class="col-2" style="padding:2px">
+            <button v-on:click="searchCompanies" class="button">Search</button>
+          </div>
+      </form>
+      
+      <div>     
+        <grid :gridData="gridData" :gridColumns="gridColumns" :showOverlay="isLoading" @getHistory="getHistory"></grid>
+      </div>
     </div>
 
   </div>
@@ -45,7 +51,6 @@ export default {
   computed: {
     gridData: function(){
       if(this.companiesList != null){
-        console.log(this.companiesList);
         return this.companiesList;
       }
       else{

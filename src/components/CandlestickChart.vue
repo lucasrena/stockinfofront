@@ -22,7 +22,7 @@ export default {
                     text: this.title
                 },
                 chart:{
-                    height: '70%'
+                    height: '60%'
                 },
                 scrollbar:{
                     enabled: false
@@ -31,7 +31,23 @@ export default {
                     type: 'candlestick',
                     name: 'Stock Price',
                     data: this.chartData
-                }]
+                }],
+                yAxis: {
+                    lineWidth: 2,
+                    offset: 40,
+                    tickWidth: 1,
+                    tickPosition: "inside"
+                },
+                tooltip:{xDateFormat: '%A, %b %d'},
+                plotOptions: {
+                    candlestick: {
+                        color: '#ab2929',
+                        upColor: 'white'
+                    }
+                },
+                credits: {
+                    enabled: false
+                }
             }
         }
     },

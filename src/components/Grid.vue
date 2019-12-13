@@ -67,6 +67,7 @@ export default {
         rowHeight : 30,        
         headerHeight : 30,
         alwaysShowVerticalScroll: true,
+        enableBrowserTooltips: true,
         overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Loading...</span>'
       }
 
@@ -75,13 +76,19 @@ export default {
           { 
             headerName: 'Name',
             field: 'name',
-            flex: 4
+            flex: 4,
+            tooltip: function(){
+              return "Click for stock price history";
+            }
           },
           { 
             headerName: 'Symbol',
             field: 'symbol',
             minWidth: 70,
-            flex: 1
+            flex: 1,
+            tooltip: function(){
+              return "Click for stock price history";
+            }
           },
       ];
   },

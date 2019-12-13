@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div class="chart-container">    
     <candlestick-chart :chartData="history" :title="chartTitle"></candlestick-chart>
   </div>
 </template>
@@ -22,8 +22,7 @@ export default {
   },
   computed:{
     chartTitle(){
-      console.log(this.companyData);
-      return this.companyData != null ? this.companyData.company.symbol + " - " + this.companyData.company.name + " Price History": "";
+      return this.companyData != null ? this.companyData.company.symbol + " - " + this.companyData.company.name : "";
     },
     history(){
       return this.companyData != null ? this.companyData.history : null;
@@ -33,4 +32,7 @@ export default {
 </script>
 
 <style scoped>
+.chart-container{
+  padding : 20px
+}
 </style>
