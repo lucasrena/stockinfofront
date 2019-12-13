@@ -1,7 +1,7 @@
 <template>
   <div>     
       <ag-grid-vue
-        style="width: 600px; height: 500px;"
+        style="width: 700px; height: 500px;"
         class="ag-theme-balham"
         :columnDefs="columnDefs"
         :rowData="gridData"

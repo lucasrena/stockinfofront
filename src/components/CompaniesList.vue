@@ -1,6 +1,6 @@
 <template>
   <div class="search-wrapper">
-    <modal name="company-details-modal" :adaptive="true">
+    <modal name="company-details-modal" :width="'700px'" :height="'auto'">
       <div>
         <company-details :companyData="companyData"></company-details>
       </div>
@@ -58,7 +58,7 @@ export default {
       this.isLoading = true;
       this.$http.get('/api/companies/', { params :{ name : this.search }})
         .then(response => this.setCompaniesList(response.body))
-        .catch(error => console.log(error.body))
+        .catch(error => this.displayError(error.body))
     },
     setCompaniesList(companiesList){
       this.isLoading = false;
@@ -68,12 +68,16 @@ export default {
       this.isLoading = true;
       this.$http.get('/api/companies/'+id+'/history/')
         .then(response => this.showCompanyDetails(response.body))
-        .catch(error => console.log(error.body))
+        .catch(error => this.displayError(error.body))
     },
     showCompanyDetails(companyData){
       this.isLoading = false;
       this.companyData = companyData;
       this.$modal.show('company-details-modal');
+    },
+    displayError(error){
+      this.isLoading = false;
+      console.log(error);
     }
   }
 }
