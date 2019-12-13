@@ -22,18 +22,36 @@ export default {
     gridData: Array,
     columns: Array,
     filterKey: String,
+    showOverlay: Boolean,
     gridColumns: null
   },
   data: function () {
     return {      
       columnDefs: null,
       modules: AllCommunityModules,
-      gridOptions: null
+      gridOptions: null,
+      gridApi: null
     }
+  },
+  watch:{
+    showOverlay: function (val) {
+      if(val){
+        this.showGridOverlay();
+      }
+      else{
+        this.hideGridOverlay();
+      }
+    },
   },
   methods: {
     getDetails(event){
       this.$emit("getHistory", event.data.id);
+    },
+    showGridOverlay(){
+      this.gridApi.showLoadingOverlay();
+    },
+    hideGridOverlay(){
+      this.gridApi.hideOverlay();
     }
   },
   beforeMount() {
@@ -48,7 +66,8 @@ export default {
         paginationAutoPageSize : true,
         rowHeight : 30,        
         headerHeight : 30,
-        alwaysShowVerticalScroll: true
+        alwaysShowVerticalScroll: true,
+        overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Loading...</span>'
       }
 
       //TODO: get codes from param gridColumns
@@ -65,6 +84,9 @@ export default {
             flex: 1
           },
       ];
+  },
+  mounted() {
+    this.gridApi = this.gridOptions.api;
   }
 }
 </script>

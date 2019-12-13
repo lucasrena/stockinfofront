@@ -1,33 +1,35 @@
 <template>
   <div class="search-wrapper">
-    <loading :active.sync="isLoading" :can-cancel="true" class="modal-dialog"></loading>
-
     <modal name="company-details-modal" :adaptive="true">
       <div>
         <company-details :companyData="companyData"></company-details>
       </div>
     </modal>
+
+    <form class="row">
+        <div class="col-10">
+          <label>Search for company</label>
+          <input type="text" v-model="search" placeholder="search by name or symbol"/>
+        </div>
+        <div class="col-2" style="padding:2px">
+          <button v-on:click="searchCompanies" class="button">Search</button>
+        </div>
+    </form>
     
-    <div>
-      <p>Search for companies:</p>
-    </div>
-    <input type="text" v-model="search" placeholder="Search by name..."/>
-    <button v-on:click="searchCompanies">Search</button>    
     <div>     
-      <grid :gridData="gridData" :gridColumns="gridColumns" @getHistory="getHistory"></grid>
+      <grid :gridData="gridData" :gridColumns="gridColumns" :showOverlay="isLoading" @getHistory="getHistory"></grid>
     </div>
+
   </div>
 </template>
 
 <script>
 import CompanyDetails from './CompanyDetails.vue';
 import Grid from './Grid.vue';
-import Loading from 'vue-loading-overlay';
 
 export default {
   components: {
     CompanyDetails,
-    Loading,
     Grid
   },
   name: 'Searchbox',
@@ -53,6 +55,7 @@ export default {
   },
   methods: {
     searchCompanies () {
+      this.isLoading = true;
       this.$http.get('/api/companies/', { params :{ name : this.search }})
         .then(response => this.setCompaniesList(response.body))
         .catch(error => console.log(error.body))
@@ -75,3 +78,27 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.button {
+  background-color: #ab2929;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+</style>

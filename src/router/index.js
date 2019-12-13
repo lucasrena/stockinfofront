@@ -4,7 +4,6 @@ import CompaniesList from '@/components/CompaniesList'
 
 import TurbolinksAdapter from 'vue-turbolinks';
 import VueResource from 'vue-resource';
-//import Vue from 'vue/dist/vue.esm';
 import Highcharts from 'highcharts'
 import HighchartsVue from 'highcharts-vue';
 import stockInit from 'highcharts/modules/stock'

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1>StockInfo App</h1>
+    <header class="container header center" style="padding:10px 5px">
+      <h1 class="margin jumbo">StockInfo App</h1>
+    </header>
     <div class="row">
       <div class="col-6 col-s-9">
         <router-view/>
@@ -22,11 +24,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .header {
-  background-color: #9933cc;
+  background-color: #ab2929;
   color: #ffffff;
   padding: 15px;
 }
